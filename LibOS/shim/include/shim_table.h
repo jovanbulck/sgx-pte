@@ -310,6 +310,8 @@ long __shim_send_rpc (long, long, long);
 long __shim_recv_rpc (long, long, long);
 long __shim_checkpoint(long);
 
+long __shim_dump(long);
+
 typedef void (*shim_fp)(void);
 extern shim_fp shim_table [SHIM_NSYSCALLS];
 
@@ -480,6 +482,8 @@ int shim_do_benchmark_rpc (pid_t pid, int times, const void * buf, size_t size);
 size_t shim_do_send_rpc (pid_t pid, const void * buf, size_t size);
 size_t shim_do_recv_rpc (pid_t * pid, void * buf, size_t size);
 int shim_do_checkpoint(const char * filename);
+
+int shim_do_dump(uint64_t arg);
 
 #endif /* ! IN_SHIM */
 
@@ -846,5 +850,7 @@ int shim_benchmark_rpc (pid_t pid, int times, const void * buf, size_t size);
 size_t shim_send_rpc (pid_t pid, const void * buf, size_t size);
 size_t shim_recv_rpc (pid_t * pid, void * buf, size_t size);
 int shim_checkpoint(const char * filename);
+
+int shim_dump(uint64_t arg);
 
 #endif /* _SHIM_TABLE_H_ */

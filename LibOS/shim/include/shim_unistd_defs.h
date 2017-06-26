@@ -4,6 +4,6 @@
 #ifndef _SHIM_UNISTD_DEFS_H_
 #define _SHIM_UNISTD_DEFS_H_
 
-#define SHIM_NSYSCALLS          311
+#define SHIM_NSYSCALLS          312
 
 #endif

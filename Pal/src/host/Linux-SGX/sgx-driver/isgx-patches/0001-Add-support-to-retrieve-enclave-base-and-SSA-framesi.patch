@@ -1,0 +1,70 @@
+From 608287c4930b5cc2154b7f2c650314f993af75ef Mon Sep 17 00:00:00 2001
+From: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
+Date: Fri, 4 Nov 2016 10:21:21 +0100
+Subject: [PATCH] Add support to retrieve enclave base and SSA framesize.
+
+---
+ isgx.h       |  2 ++
+ isgx_ioctl.c |  1 +
+ isgx_vma.c   | 20 ++++++++++++++++++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/isgx.h b/isgx.h
+index 43371c9..67987cf 100644
+--- a/isgx.h
++++ b/isgx.h
+@@ -134,6 +134,8 @@ struct isgx_enclave {
+ 	struct isgx_enclave_page	secs_page;
+ 	struct isgx_tgid_ctx		*tgid_ctx;
+ 	struct list_head		enclave_list;
++    //XXX HACK
++	u32                     ssaframesize;
+ };
+ 
+ extern struct workqueue_struct *isgx_add_page_wq;
+diff --git a/isgx_ioctl.c b/isgx_ioctl.c
+index fc6003b..7e67882 100644
+--- a/isgx_ioctl.c
++++ b/isgx_ioctl.c
+@@ -370,6 +370,7 @@ static long isgx_ioctl_enclave_create(struct file *filep, unsigned int cmd,
+ 	enclave->mm = current->mm;
+ 	enclave->base = secs->base;
+ 	enclave->size = secs->size;
++	enclave->ssaframesize = secs->ssaframesize; //XXX HACK
+ 	enclave->backing = backing;
+ 
+ 	ret = add_tgid_ctx(enclave);
+diff --git a/isgx_vma.c b/isgx_vma.c
+index 416b8d3..7a30d3a 100644
+--- a/isgx_vma.c
++++ b/isgx_vma.c
+@@ -384,6 +384,26 @@ int isgx_vma_access(struct vm_area_struct *vma, unsigned long addr,
+ //XXX hack to be able to call this function from other LKMs
+ EXPORT_SYMBOL(isgx_vma_access);
+ 
++unsigned long isgx_get_enclave_base(struct vm_area_struct *vma)
++{
++	struct isgx_enclave *enclave;
++	if (vma && (enclave = vma->vm_private_data))
++    	return enclave->base;
++    
++    return -EFAULT;
++}
++EXPORT_SYMBOL(isgx_get_enclave_base);
++
++unsigned long isgx_get_enclave_ssaframesize(struct vm_area_struct *vma)
++{
++	struct isgx_enclave *enclave;
++	if (vma && (enclave = vma->vm_private_data))
++    	return enclave->ssaframesize;
++    
++    return -EFAULT;
++}
++EXPORT_SYMBOL(isgx_get_enclave_ssaframesize);
++
+ struct vm_operations_struct isgx_vm_ops = {
+ 	.close = isgx_vma_close,
+ 	.open = isgx_vma_open,
+-- 
+2.5.0
+

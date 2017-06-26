@@ -1,0 +1,17 @@
+## which binary to load in the graphene OS instance
+loader.preload = file:$(SHIMPATH)
+
+## try `make SGX=1 DEBUG=1` for dmesg-like inlined debug output from libOS
+loader.debug_type           = $(DEBUGTYPE)
+
+## which libraries should be mounted in the graphene OS instance
+loader.env.LD_LIBRARY_PATH = /lib
+
+fs.mount.lib.type = chroot
+fs.mount.lib.path = /lib
+fs.mount.lib.uri = file:$(LIBCDIR)
+
+## which outside files should be signed for loading in the enclave
+sgx.trusted_files.ld = file:$(LIBCDIR)/ld-linux-x86-64.so.2
+sgx.trusted_files.libc = file:$(LIBCDIR)/libc.so.6
+

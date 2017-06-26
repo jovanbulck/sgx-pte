@@ -13,6 +13,8 @@
 
 int ocall_exit (void);
 
+int ocall_dump(uint64_t);
+
 int ocall_print_string (const char * str, unsigned int length);
 
 int ocall_alloc_untrusted (unsigned int size, void ** mem);

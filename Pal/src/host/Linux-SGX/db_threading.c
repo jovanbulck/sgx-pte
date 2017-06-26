@@ -111,6 +111,11 @@ void _DkThreadExit (void)
     ocall_exit();
 }
 
+void _DkDump(uint64_t arg)
+{
+    ocall_dump(arg);
+}
+
 int _DkThreadResume (PAL_HANDLE threadHandle)
 {
     return ocall_schedule(threadHandle->thread.tid);

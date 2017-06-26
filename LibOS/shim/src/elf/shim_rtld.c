@@ -1520,7 +1520,8 @@ out:
 
 int register_library (const char * name, unsigned long load_address)
 {
-    debug("glibc register library %s loaded at %p\n",
+    //XXX always print library load adrs
+    __sys_printf/*debug*/("glibc register library %s loaded at %p\n",
           name, load_address);
 
     struct shim_handle * hdl = get_new_handle();

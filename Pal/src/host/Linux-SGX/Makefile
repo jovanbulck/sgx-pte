@@ -24,7 +24,7 @@ enclave-objs = $(addprefix db_,files devices pipes sockets streams memory \
 	       $(addprefix enclave_,ocalls ecalls framework pages untrusted) \
 	       $(patsubst %.c,%,$(wildcard crypto/*.c))
 enclave-asm-objs = enclave_entry
-urts-objs = $(addprefix sgx_,enclave framework main rtld thread process exception graphene)
+urts-objs = $(addprefix sgx_,enclave framework main rtld thread process exception graphene attacker)
 urts-asm-objs = sgx_entry
 graphene_lib = ../../.lib/graphene-lib.a
 headers	= $(wildcard *.h) $(wildcard ../../*.h) $(wildcard ../../../lib/*.h)

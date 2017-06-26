@@ -286,3 +286,11 @@ int shim_do_checkpoint (const char * filename)
 
     return 0;
 }
+
+int shim_do_dump (uint64_t arg)
+{
+    DkDump(arg);
+
+    return 1234;
+}
+

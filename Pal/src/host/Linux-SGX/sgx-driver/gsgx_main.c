@@ -18,6 +18,7 @@
 #include <linux/security.h>
 #include <asm/tlbflush.h>
 #include "gsgx.h"
+#include "gsgx_attacker.h"
 
 #define DRV_DESCRIPTION "Graphene SGX Driver"
 #define DRV_VERSION "0.10"
@@ -27,6 +28,13 @@ MODULE_AUTHOR("Chia-Che Tsai <chia-che.tsai@intel.com>");
 MODULE_VERSION(DRV_VERSION);
 
 IMPORT_KSYM(dac_mmap_min_addr);
+
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 0, 0)
+static void __enable_fsgsbase(void *v)
+{
+	write_cr4(read_cr4() | X86_CR4_FSGSBASE);
+}
+#endif
 
 static long gsgx_ioctl_enclave_create(struct file *filep, unsigned int cmd,
 				      unsigned long arg)
@@ -43,7 +51,9 @@ static long gsgx_ioctl_enclave_create(struct file *filep, unsigned int cmd,
 	}
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4, 0, 0)
-	write_cr4(read_cr4() | X86_CR4_FSGSBASE);
+	//write_cr4(read_cr4() | X86_CR4_FSGSBASE);
+	__enable_fsgsbase(NULL);
+	smp_call_function(__enable_fsgsbase, NULL, 1);
 #endif
 
 	isgx_create.src = createp->src;
@@ -123,7 +133,19 @@ long gsgx_ioctl(struct file *filep, unsigned int cmd, unsigned long arg)
 		case GSGX_IOCTL_ENCLAVE_INIT:
 			handler = gsgx_ioctl_enclave_init;
 			break;
-		default:
+        case GSGX_IOCTL_SPY_START:
+            handler = gsgx_ioctl_spy_start;
+            break;
+        case GSGX_IOCTL_SPY_STOP:
+            handler = gsgx_ioctl_spy_stop;
+            break;
+	    case GSGX_IOCTL_SPY_WAIT:
+            handler = gsgx_ioctl_spy_wait;
+            break;
+	    case GSGX_IOCTL_SPY_INIT:
+            handler = gsgx_ioctl_spy_init;
+            break;
+	default:
 			return -EINVAL;
 	}
 
@@ -247,6 +269,8 @@ static int gsgx_setup(void)
 
 static void gsgx_teardown(void)
 {
+    gsgx_attacker_teardown();
+
 	if (gsgx_dev.this_device)
 		misc_deregister(&gsgx_dev);
 
@@ -272,6 +296,8 @@ static int __init gsgx_init(void)
 		gsgx_teardown();
 		return ret;
 	}
+
+    gsgx_attacker_setup();
 
 	return 0;
 }

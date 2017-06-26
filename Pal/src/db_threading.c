@@ -86,6 +86,14 @@ void DkThreadExit (void)
     LEAVE_PAL_CALL();
 }
 
+void DkDump (uint64_t arg)
+{
+    ENTER_PAL_CALL(DkDump);
+    extern void _DkDump(uint64_t);
+    _DkDump(arg);
+    LEAVE_PAL_CALL();
+}
+
 /* PAL call DkThreadResume: resume the execution of a thread
    which is delayed before */
 PAL_BOL DkThreadResume (PAL_HANDLE threadHandle)

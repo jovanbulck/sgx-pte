@@ -16,14 +16,31 @@
 #include <math.h>
 #include <asm/errno.h>
 
+#include "sgx_attacker.h"
+
 #define PAL_SEC() (&current_enclave->pal_sec)
 
 #define ODEBUG(code, ms) do {} while (0)
 
 static int sgx_ocall_exit(void * pms)
 {
+    /* XXX Probe PTE entries of enclave app */
+    sgx_exit_victim();
+
     ODEBUG(OCALL_EXIT, NULL);
     INLINE_SYSCALL(exit, 1, 0);
+    
+    return 0;
+}
+
+static int sgx_ocall_dump(void *pms)
+{
+    ms_ocall_dump_t * ms = (ms_ocall_dump_t *) pms;
+    
+    printf("ocall_dump: %p\n", ms->arg);
+
+    sgx_sysdump_victim(ms->arg);
+    
     return 0;
 }
 
@@ -693,6 +710,7 @@ void * ocall_table[OCALL_NR] = {
         [OCALL_DELETE]          = (void *) sgx_ocall_delete,
         [OCALL_SCHEDULE]        = (void *) sgx_ocall_schedule,
         [OCALL_LOAD_DEBUG]      = (void *) sgx_ocall_load_debug,
+        [OCALL_DUMP]            = (void *) sgx_ocall_dump,
     };
 
 #define EDEBUG(code, ms) do {} while (0)

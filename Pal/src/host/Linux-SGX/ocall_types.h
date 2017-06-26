@@ -47,8 +47,13 @@ enum {
     OCALL_DELETE,
     OCALL_SCHEDULE,
     OCALL_LOAD_DEBUG,
+    OCALL_DUMP,
     OCALL_NR,
 };
+
+typedef struct {
+    uint64_t arg;
+} ms_ocall_dump_t;
 
 typedef struct {
     const char * ms_str;

@@ -1,0 +1,88 @@
+## Building Graphene
+
+Build PAL(partly trusted/untrusted), Graphene SGX driver (untrusted), and
+libOS (trusted) (https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start).
+
+0. Prepare a signing key:
+
+    $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/signer
+    $ openssl genrsa -3 -out enclave-key.pem 3072
+
+1. Build PAL/libOS with debug output enabled:
+
+    $ cd $(GRAPHENE_DIR)/Pal/src/
+    $ make SGX=1 DEBUG=1
+    $ cd $(GRAPHENE_DIR)/LibOS/
+    $ make SGX=1 DEBUG=1
+
+2. Build and load graphene-sgx driver (including attacker spy code):
+
+    $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/
+    $ make load
+
+    Graphene somehow wants to map enclaves in low virtual memory (from 0x0).
+    This has to be explicitly allowed (https://wiki.debian.org/mmap_min_addr);
+    `make load` automatically takes care of this.
+
+## Running the enclaved application binary
+
+0. Configure addresses to monitor and spy/victim CPU numbers in
+   $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c.
+
+1. Build the trusted PAL enclave binary and untrusted loader, based on the
+   configuration in the manifest. Also signs the PAL enclave binary and
+   supporting libOS to make them ready for shipment.
+
+    $ make SGX=1 # DEBUG=1 for dmesg-style debug output
+
+2. Get the enclave launch token from Intel aesmd service. Keep on restarting
+   the aesmd service in case it crashes.
+
+    $ make SGX_RUN=1
+    $ sudo service aesmd status # restart/stop/start as needed
+
+3. Launch Graphene libOS in an enclave to run the application.
+
+    $ ../pal_loader helloworld
+
+4. Retrieve the spy results from the gsgx driver:
+
+    $ dmesg | tail
+
+## Microbenchmarks
+
+The helloworld binary includes asm code that can be used to quantify Inter
+Processor Interrupt (IPI) latency in terms of the number of instructions
+executed by the enclave after accessing a page, and before being interrupted
+by the kernel.
+
+Proceed as follows:
+
+1. Configure the address to monitor and the expected instruction pointer
+   (&a and &asm_microbenchmark_slide) in the modified gsgx driver. Also enable
+   SYSDUMP_CONTROL_SPY in urts sgx_attacker.c (so as to minimize the time
+   caching is potentially disabled).
+
+2. x86 instruction type and the landing slide length for the microbenchmark
+   experiment can be configured in the build_asm Python script.
+
+3. Apply the patches in $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/isgx-
+   patches/ to the isgx driver. This allows gsgx to retrieve the stored $RIP
+   from an interrupted debug enclave.
+
+4. The gsgx driver includes precompiler options to investigate the effect of
+   a.o. disabling the cache on the enclave CPU (CR0.CD) and sending the IPI
+   directly from custom kernel asm code. Also enable CONFIG_SPY_MICRO and
+   CONFIG_EDBGRD_RIP here.
+
+5. You can play with victim/spy CPU frequency in the ../pal_loader script, but
+   this does not seem to have a lot of influence...
+
+6. Finally, run the enclaved binary in Graphene, retrieve the measurements
+   from the gsgx driver, and parse them as follows:
+
+    $ ./parse_microbenchmarks.sh
+
+   This creates a file measurements.txt and dumps basic statistics (median,
+   mean, stddev) on stdout using R. Also, a histogram of the distrubition is
+   created in plot.pdf (using gnuplot).

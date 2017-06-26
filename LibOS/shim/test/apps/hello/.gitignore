@@ -1,0 +1,10 @@
+helloworld
+helloworld.manifest
+*.manifest.sgx
+*.sig
+*.token
+
+asm.S
+measurements.txt
+measurements_raw.txt
+plot.pdf

@@ -390,6 +390,8 @@ DkThreadYieldExecution (void);
 void
 DkThreadExit (void);
 
+void DkDump(uint64_t arg);
+
 PAL_BOL
 DkThreadResume (PAL_HANDLE thread);
 

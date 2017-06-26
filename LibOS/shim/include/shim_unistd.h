@@ -59,6 +59,7 @@ struct nameinfo {
 };
 
 #define __NR_checkpoint         310
+#define __NR_dump               311
 
 int checkpoint (const char * filename);
 

@@ -75,6 +75,19 @@ int ocall_exit(void)
     return retval;
 }
 
+int ocall_dump(uint64_t arg)
+{
+    int retval = 0;
+    ms_ocall_dump_t *ms;
+    OCALLOC(ms, ms_ocall_dump_t *, sizeof(*ms));
+
+    ms->arg = arg;
+
+    retval = SGX_OCALL(OCALL_DUMP, ms);
+    OCALL_EXIT();
+    return retval;
+}
+
 int ocall_print_string (const char * str, unsigned int length)
 {
     int retval = 0;

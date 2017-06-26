@@ -1171,6 +1171,8 @@ DEFINE_SHIM_SYSCALL (recv_rpc, 3, shim_do_recv_rpc, size_t, pid_t *, pid,
 DEFINE_SHIM_SYSCALL (checkpoint, 1, shim_do_checkpoint, int,
                      const char *, filename)
 
+DEFINE_SHIM_SYSCALL (dump, 1, shim_do_dump, int, uint64_t, arg)
+
 /*
 SHIM_SYSCALL_PASSTHROUGH (fanotify_init, 2, int, int, flags, int, event_f_flags)
 

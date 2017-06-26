@@ -15,6 +15,8 @@
 #include <linux/in6.h>
 #include <asm/errno.h>
 
+#include "sgx_attacker.h"
+
 #include <sysdep.h>
 #include <sysdeps/generic/ldsodefs.h>
 
@@ -228,6 +230,8 @@ int load_enclave_binary (sgx_arch_secs_t * secs, int fd,
 
     return 0;
 }
+
+struct pal_sec * pal_sec = NULL;
 
 int initialize_enclave (struct pal_enclave * enclave)
 {
@@ -460,7 +464,7 @@ add_pages:
     create_tcs_mapper((void *) enclave_secs.baseaddr + tcs_area->addr,
                       enclave->thread_num);
 
-    struct pal_sec * pal_sec = &enclave->pal_sec;
+    pal_sec = &enclave->pal_sec;
 
     pal_sec->enclave_addr = (PAL_PTR) (enclave_secs.baseaddr + pal_area->addr);
 
@@ -856,6 +860,9 @@ static int load_enclave (struct pal_enclave * enclave,
 
     current_enclave = enclave;
     map_tcs(INLINE_SYSCALL(gettid, 0));
+
+    /* XXX start attacker code */
+    sgx_enter_victim();
 
     /* start running trusted PAL */
     ecall_pal_main(arguments, environments);

@@ -1,0 +1,35 @@
+From 8bdba3950aaa780eda9d63faaa44c42bbb004d84 Mon Sep 17 00:00:00 2001
+From: Jo Van Bulck <jo.vanbulck@cs.kuleuven.be>
+Date: Wed, 24 Aug 2016 15:25:27 +0200
+Subject: [PATCH] Export isgx_vma_access function to allow EDBGRD/WR in other
+ LKMs.
+
+---
+ isgx_vma.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/isgx_vma.c b/isgx_vma.c
+index f5162ad..416b8d3 100644
+--- a/isgx_vma.c
++++ b/isgx_vma.c
+@@ -326,7 +326,7 @@ static inline int isgx_vma_access_word(struct isgx_enclave *enclave,
+ 	return cnt;
+ }
+ 
+-static int isgx_vma_access(struct vm_area_struct *vma, unsigned long addr,
++int isgx_vma_access(struct vm_area_struct *vma, unsigned long addr,
+ 			   void *buf, int len, int write)
+ {
+ 	struct isgx_enclave *enclave = vma->vm_private_data;
+@@ -381,6 +381,8 @@ static int isgx_vma_access(struct vm_area_struct *vma, unsigned long addr,
+ 
+ 	return (ret < 0 && ret != -ECANCELED) ? ret : i;
+ }
++//XXX hack to be able to call this function from other LKMs
++EXPORT_SYMBOL(isgx_vma_access);
+ 
+ struct vm_operations_struct isgx_vm_ops = {
+ 	.close = isgx_vma_close,
+-- 
+2.5.0
+

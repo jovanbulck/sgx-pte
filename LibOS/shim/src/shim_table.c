@@ -342,4 +342,5 @@ shim_fp shim_table [SHIM_NSYSCALLS] = {
     (shim_fp) __shim_send_rpc,          /* 308 */
     (shim_fp) __shim_recv_rpc,          /* 309 */
     (shim_fp) __shim_checkpoint,        /* 310 */
+    (shim_fp) __shim_dump,              /* 311 */
 };

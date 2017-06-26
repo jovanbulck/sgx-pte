@@ -1,0 +1,4 @@
+These patches need to be applied to the isgx driver (linux-sgx-driver project)
+so as to be able to read the memory of a debug enclave from the gsgx driver.
+This is used to retrieve the stored instruction pointer of an interrupted
+microbenchmark enclave to quantify the latency of Inter Processor Interrupts.

@@ -36,6 +36,20 @@ if [ ! -f "$PAL_CMD" ]; then
 	exit 1
 fi
 
-set -x
+#XXX add kernel boot options to /etc/default/grub if needed:
+#
+#   isolcpus=1 intel_pstate=disable
+#
+#VICTIM_CPU=0
+#SPY_CPU=1
+#CPU_MIN_FREQ=400Mhz #2.50GHz 
+#CPU_MAX_FREQ=2.50GHz
+#
+#echo "maximally overclocking spy CPU $SPY_CPU @$CPU_MAX_FREQ"
+#sudo cpufreq-set -c $SPY_CPU -f $CPU_MAX_FREQ
+#echo "maximally underclocking victim CPU $VICTIM_CPU @$CPU_MIN_FREQ"
+#sudo cpufreq-set -c $VICTIM_CPU -f $CPU_MIN_FREQ
+#cpufreq-info
 
+set -x
 exec $GDB_CMD $PAL_CMD $MANIFEST "$@"
