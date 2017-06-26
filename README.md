@@ -30,3 +30,13 @@ noise from the popular Libgcrypt cryptographic software suite.
 
 TODO: more detailed instructions will appear here soon...
 
+# License
+
+The code base is based on the Graphene-SGX project
+<https://github.com/oscarlab/graphene>, which is itself licensed under GPLv3
+(<https://github.com/oscarlab/graphene/issues/1>).
+Libgcrypt (<https://gnupg.org/related_software/libgcrypt/>) is available under
+the LGPL license.
+
+All our attacker code extensions are equally licensed as free software, under
+the GPLv3 license.
