@@ -81,8 +81,10 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
    requires the patches in the
    `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/isgx-patches/` directory,
    so as to be able to read the memory of a debug enclave from the gsgx driver.
-   (This is used to retrieve the stored instruction pointer of an interrupted
-   microbenchmark enclave to quantify the latency of Inter Processor Interrupts.)
+   We applied the patches to isgx v1.7 (commit [#51b2884](https://github.com/01org/linux-sgx-driver/commit/51b2884d4c3ac0f7bfa5b46ff529496e360e5ef1)).
+   Note that EDBGRD is only used to quantify the latency of Inter Processor Interrupts
+   by retrieving the stored instruction pointer of an interrupted
+   microbenchmark debug enclave.
 
 3. Build and load graphene-sgx driver (including our attacker spy code):
 
