@@ -55,8 +55,6 @@ We based our attack framework on on commit [#df4af24](https://github.com/jovanbu
 
 # Build and Run
 
-TODO: more detailed instructions will appear here soon...
-
 ## Building Graphene
 
 Build PAL (partly trusted/untrusted), Graphene SGX driver (untrusted), and
