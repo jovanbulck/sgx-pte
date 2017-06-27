@@ -34,21 +34,23 @@ noise from the popular Libgcrypt cryptographic software suite.
 # Source Code Overview
 
 We based our attack framework on on commit [#df4af24](https://github.com/jovanbulck/sgx-pte/commit/df4af2451dad05914b60ef87445dee219ccc74d1) from the upstream
-[Graphene-SGX](https://github.com/oscarlab/graphene) project. The following lists the major modifications:
+[Graphene-SGX](https://github.com/oscarlab/graphene) project. Note that we use the environment variables `$GRAPHENE` and `$GRAPHENE_SGX` to refer to respectively the root directory containing the Graphene git directory and `$GRAPHENE/Pal/src/host/Linux-SGX/`.
 
-* `Pal/src/host/Linux-SGX/sgx_attacker.c`: untrusted user space runtime
+ The following lists the major modifications:
+
+* `$GRAPHENE_SGX/sgx_attacker.c`: untrusted user space runtime
    modifications to create and synchronize spy/victim threads.
 
-* `Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_*`: untrusted gsgx kernel
+* `$GRAPHENE_SGX/sgx-driver/gsgx_attacker_*`: untrusted gsgx kernel
    driver modifications implementing attacker thread to spy on victim Page
    Table Entries (PTEs).
 
-* `LibOS/shim/test/apps/hello`: simple microbenchmark application to quantify
+* `$GRAPHENE/LibOS/shim/test/apps/hello`: simple microbenchmark application to quantify
    Inter Processor Interrupt (IPI) latency in terms of the number of instructions
    executed by the enclave after accessing a page, and before being interrupted
    by the kernel.
 
-* `LibOS/shim/test/apps/libgcrypt/`: minimal client application and Graphene
+* `$GRAPHENE/LibOS/shim/test/apps/libgcrypt/`: minimal client application and Graphene
    manifest to run unmodified Libgcrypt v1.6.3/v1.7.5 libraries in an SGX enclave.
 
 # Build and Run
@@ -60,26 +62,26 @@ TODO: more detailed instructions will appear here soon...
 Build PAL (partly trusted/untrusted), Graphene SGX driver (untrusted), and
 libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
 
+
 0. Prepare a signing key:
 
 ```bash
-    $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/signer
+    $ cd $GRAPHENE_SGX/signer
     $ openssl genrsa -3 -out enclave-key.pem 3072
 ```
 
 1. Build PAL/libOS (with debug output enabled):
 
 ```bash
-    $ cd $(GRAPHENE_DIR)/Pal/src/
+    $ cd $GRAPHENE/Pal/src/
     $ make SGX=1 DEBUG=1
-    $ cd $(GRAPHENE_DIR)/LibOS/
+    $ cd $GRAPHENE/LibOS/
     $ make SGX=1 DEBUG=1
 ```
 
-2. Make sure you have a working linux-sgx-driver
-   (<https://github.com/01org/linux-sgx-driver/>). The microbenchmark code
-   requires the patches in the
-   `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/isgx-patches/` directory,
+2. Make sure you have a working [linux-sgx-driver](<https://github.com/01org/linux-sgx-driver/>).
+   The microbenchmark code requires the patches in the
+   `$GRAPHENE_SGX/sgx-driver/isgx-patches/` directory,
    so as to be able to read the memory of a debug enclave from the gsgx driver.
    We applied the patches to isgx v1.7 (commit [#51b2884](https://github.com/01org/linux-sgx-driver/commit/51b2884d4c3ac0f7bfa5b46ff529496e360e5ef1)).
    Note that EDBGRD is only used to quantify the latency of Inter Processor Interrupts
@@ -89,7 +91,7 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
 3. Build and load graphene-sgx driver (including our attacker spy code):
 
 ```bash
-    $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/
+    $ cd $GRAPHENE_SGX/sgx-driver/
     $ make load
 ```
 
@@ -101,19 +103,16 @@ This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
 
 0. Before building Graphene untrusted runtime (step 1/3 above):
 
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c`: configure
-      spy/victim pinned CPU numbers
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_config.h`:
-      configure spy thread options
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_pte_set.c`:
-      configure addresses to monitor
+   * `$GRAPHENE_SGX/sgx_attacker.c`: configure spy/victim pinned CPU numbers
+   * `$GRAPHENE_SGX/sgx-driver/gsgx_attacker_config.h`: configure spy thread options
+   * `$GRAPHENE_SGX/sgx-driver/gsgx_attacker_pte_set.c`: configure addresses to monitor
 
 1. Build the trusted PAL, application binary and untrusted loader, based on the
    configuration in the manifest. Also signs the enclaved binary and
    supporting libOS to make them ready for shipment.
 
 ```bash
-    $ cd $(GRAPHENE_DIR)/LibOS/shim/test/apps/hello
+    $ cd $GRAPHENE/LibOS/shim/test/apps/hello
     $ make SGX=1 # DEBUG=1 for dmesg-style debug output
 ```
 
@@ -143,7 +142,7 @@ This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
 
 ## IPI Latency Microbenchmarks (`CONFIG_SPY_MICRO`)
 
-The helloworld binary (`$(GRAPHENE_DIR)/LibOS/shim/test/apps/hello/`)
+The helloworld binary (`$GRAPHENE/LibOS/shim/test/apps/hello/`)
 includes asm code that can be used to quantify Inter
 Processor Interrupt (IPI) latency in terms of the number of instructions
 executed by the enclave after accessing a page, and before being interrupted
@@ -153,14 +152,13 @@ Proceed as follows:
 
 0. Before building untrusted Graphene runtime:
 
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c`: enable
-      `SYSDUMP_CONTROL_SPY`.
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/sgx_attacker_config.h`:
+   * `$GRAPHENE_SGX/sgx_attacker.c`: enable`SYSDUMP_CONTROL_SPY`.
+   * `$GRAPHENE_SGX/sgx-driver/sgx_attacker_config.h`:
       includes precompiler options to investigate the effect of
       a.o, disabling the cache on the enclave CPU (CR0.CD) and sending the IPI
       directly from custom kernel asm code. Also enable `CONFIG_SPY_MICRO` and
       disable `CONFIG_SPY_GCRY` here.
-   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_pte_set.c`:
+   * `$GRAPHENE_SGX/sgx-driver/gsgx_attacker_pte_set.c`:
       Configure the address to monitor `&a` and the expected instruction pointer
       address `&asm_microbenchmark_slide`.
 
