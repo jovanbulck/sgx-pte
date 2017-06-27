@@ -33,8 +33,8 @@ noise from the popular Libgcrypt cryptographic software suite.
 
 # Source Code Overview
 
-We based our attack framework on on commit #df4af24 from the upstream
-Graphene-SGX project. The following lists the major modifications:
+We based our attack framework on on commit [#df4af24](https://github.com/jovanbulck/sgx-pte/commit/df4af2451dad05914b60ef87445dee219ccc74d1) from the upstream
+[Graphene-SGX](https://github.com/oscarlab/graphene) project. The following lists the major modifications:
 
 * `Pal/src/host/Linux-SGX/sgx_attacker.c`: untrusted user space runtime
    modifications to create and synchronize spy/victim threads.
@@ -62,15 +62,19 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
 
 0. Prepare a signing key:
 
+```bash
     $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/signer
     $ openssl genrsa -3 -out enclave-key.pem 3072
+```
 
 1. Build PAL/libOS (with debug output enabled):
 
+```bash
     $ cd $(GRAPHENE_DIR)/Pal/src/
     $ make SGX=1 DEBUG=1
     $ cd $(GRAPHENE_DIR)/LibOS/
     $ make SGX=1 DEBUG=1
+```
 
 2. Make sure you have a working linux-sgx-driver
    (<https://github.com/01org/linux-sgx-driver/>). The microbenchmark code
@@ -82,12 +86,14 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
 
 3. Build and load graphene-sgx driver (including our attacker spy code):
 
+```bash
     $ cd $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/
     $ make load
+```
 
-    Graphene somehow wants to map enclaves in low virtual memory (from 0x0).
-    This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
-    `make load` should automatically take care of this.
+Graphene somehow wants to map enclaves in low virtual memory (from 0x0).
+This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
+`make load` should automatically take care of this.
 
 ## Spying on Enclaved Application Binaries
 
@@ -104,28 +110,36 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
    configuration in the manifest. Also signs the enclaved binary and
    supporting libOS to make them ready for shipment.
 
+```bash
     $ cd $(GRAPHENE_DIR)/LibOS/shim/test/apps/hello
     $ make SGX=1 # DEBUG=1 for dmesg-style debug output
+```
 
 2. Get the enclave launch token from Intel aesmd service. (Keep on restarting
    the aesmd service in case it crashes.)
 
+```bash
     $ make SGX_RUN=1
     $ sudo service aesmd status # restart/stop/start as needed
+```
 
 3. Launch enclaved application binary.
 
+```bash
     $ ../pal_loader helloworld
+```
 
 4. Retrieve the spy results from the gsgx driver:
 
+```bash
     $ dmesg | tail
+```
 
-# Attacking Libgcrypt EdDSA (`CONFIG_SPY_GCRY`)
+## Attacking Libgcrypt EdDSA (`CONFIG_SPY_GCRY`)
 
 
 
-# IPI Latency Microbenchmarks (`CONFIG_SPY_MICRO`)
+## IPI Latency Microbenchmarks (`CONFIG_SPY_MICRO`)
 
 The helloworld binary includes asm code that can be used to quantify Inter
 Processor Interrupt (IPI) latency in terms of the number of instructions
@@ -158,7 +172,9 @@ Proceed as follows:
 6. Finally, run the enclaved binary in Graphene, retrieve the measurements
    from the gsgx driver, and parse them as follows:
 
+```bash
     $ ./parse_microbenchmarks.sh
+```
 
    This creates a file measurements.txt and dumps basic statistics (median,
    mean, stddev) on stdout using R. Also, a histogram of the distrubition is
