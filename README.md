@@ -138,7 +138,38 @@ This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
 
 ## Attacking Libgcrypt EdDSA (`CONFIG_SPY_GCRY`)
 
+Proceed as follows:
 
+0. `$GRAPHENE_SGX/sgx-driver/sgx_attacker_config.h`: configure spy thread
+before building untrusted Graphene runtime:
+
+   * Enable `CONFIG_SPY_GCRY` and disable `CONFIG_SPY_MICRO`.
+   * Choose to monitor trigger pages with either the A/D or Flush+Flush technique.
+     Likewise, PTE sets on IPIs can be constructed with either A/D or
+     Flush+Reload. Adjust cache timing threshold values as needed.
+   * Select victim Libgcrypt version (v1.6.3 or v1.7.5).
+
+1. Build unmodified Libgcrypt binaries:
+
+```bash
+    $ cd $GRAPHENE/LibOS/shim/test/apps/libgcrypt/libgcrypt-ecc/
+    $ make src
+```
+
+2. Build simple client application by setting `$GCRY_VERSION` and `$MAIN`
+   accordinly in the Makefile.
+
+```bash
+    $ make SGX=1
+    $ make SGX_RUN=1
+```
+
+3. Run the application, extract side-channel measurments, and run the
+   post-processing script to extract the 512-bit EdDSA key:
+
+```bash
+    $ ./run.sh
+```
 
 ## IPI Latency Microbenchmarks (`CONFIG_SPY_MICRO`)
 
