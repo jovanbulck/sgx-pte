@@ -1,8 +1,8 @@
 #ifndef GSGX_ATTACKER_CONFIG_H
 #define GSGX_ATTACKER_CONFIG_H
 
-#define CONFIG_SPY_MICRO            1
-#define CONFIG_SPY_GCRY             0
+#define CONFIG_SPY_MICRO            0
+#define CONFIG_SPY_GCRY             1
 #define CONFIG_SPY_GCRY_VERSION     175
 //#define CONFIG_SPY_GCRY_VERSION     163
 

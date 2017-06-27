@@ -101,12 +101,12 @@ This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
 
 0. Before building Graphene untrusted runtime (step 1/3 above):
 
-   * Configure spy/victim pinned CPU numbers in:
-     `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c`.
-   * Configure spy thread properties in:
-     `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_config.h`.
-   * Configure addresses to monitor in:
-     `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_pte_set.c`.
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c`: configure
+      spy/victim pinned CPU numbers
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_config.h`:
+      configure spy thread options
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_pte_set.c`:
+      configure addresses to monitor
 
 1. Build the trusted PAL, application binary and untrusted loader, based on the
    configuration in the manifest. Also signs the enclaved binary and
@@ -143,35 +143,31 @@ This has to be explicitly allowed (<https://wiki.debian.org/mmap_min_addr>);
 
 ## IPI Latency Microbenchmarks (`CONFIG_SPY_MICRO`)
 
-The helloworld binary includes asm code that can be used to quantify Inter
+The helloworld binary (`$(GRAPHENE_DIR)/LibOS/shim/test/apps/hello/`)
+includes asm code that can be used to quantify Inter
 Processor Interrupt (IPI) latency in terms of the number of instructions
 executed by the enclave after accessing a page, and before being interrupted
 by the kernel.
 
 Proceed as follows:
 
-1. Configure the address to monitor and the expected instruction pointer
-   (`&a` and `&asm_microbenchmark_slide`) in the modified gsgx driver
-   (`gsgx_attacker_pte_set.c`). Also enable `SYSDUMP_CONTROL_SPY` in untrusted
-   runtime `sgx_attacker.c` (so as to minimize the time caching is potentially
-   disabled).
+0. Before building untrusted Graphene runtime:
 
-2. x86 instruction type and the landing slide length for the microbenchmark
-   experiment can be configured in the build_asm Python script.
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx_attacker.c`: enable
+      `SYSDUMP_CONTROL_SPY`.
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/sgx_attacker_config.h`:
+      includes precompiler options to investigate the effect of
+      a.o, disabling the cache on the enclave CPU (CR0.CD) and sending the IPI
+      directly from custom kernel asm code. Also enable `CONFIG_SPY_MICRO` and
+      disable `CONFIG_SPY_GCRY` here.
+   * `$(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/gsgx_attacker_pte_set.c`:
+      Configure the address to monitor `&a` and the expected instruction pointer
+      address `&asm_microbenchmark_slide`.
 
-3. Apply the patches in $(GRAPHENE_DIR)/Pal/src/host/Linux-SGX/sgx-driver/isgx-
-   patches/ to the isgx driver. This allows gsgx to retrieve the stored $RIP
-   from an interrupted debug enclave.
+1. x86 instruction type and the landing slide length for the microbenchmark
+   experiment can be configured in the `build_asm` Python script.
 
-4. The gsgx driver includes precompiler options to investigate the effect of
-   a.o. disabling the cache on the enclave CPU (CR0.CD) and sending the IPI
-   directly from custom kernel asm code. Also enable CONFIG_SPY_MICRO and
-   CONFIG_EDBGRD_RIP here.
-
-5. You can play with victim/spy CPU frequency in the ../pal_loader script, but
-   this does not seem to have a lot of influence...
-
-6. Finally, run the enclaved binary in Graphene, retrieve the measurements
+2. Finally, run the enclaved binary in Graphene, retrieve the measurements
    from the gsgx driver, and parse them as follows:
 
 ```bash
