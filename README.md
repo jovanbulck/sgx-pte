@@ -86,7 +86,7 @@ libOS (trusted) (<https://github.com/oscarlab/graphene/wiki/SGX-Quick-Start>).
    by retrieving the stored instruction pointer of an interrupted
    microbenchmark debug enclave.
 
-3. Build and load graphene-sgx driver (including our attacker spy code):
+3. Build and load gsgx driver (including our attacker spy code):
 
 ```bash
     $ cd $GRAPHENE_SGX/sgx-driver/
@@ -155,14 +155,14 @@ before building untrusted Graphene runtime:
 ```
 
 2. Build simple client application by setting `$GCRY_VERSION` and `$MAIN`
-   accordinly in the Makefile.
+   accordingly in the Makefile.
 
 ```bash
     $ make SGX=1
     $ make SGX_RUN=1
 ```
 
-3. Run the application, extract side-channel measurments, and run the
+3. Run the application, extract side-channel measurements, and run the
    post-processing script to extract the 512-bit EdDSA key:
 
 ```bash
@@ -202,7 +202,7 @@ Proceed as follows:
 ```
 
    This creates a file measurements.txt and dumps basic statistics (median,
-   mean, stddev) on stdout using R. Also, a histogram of the distrubition is
+   mean, stddev) on stdout using R. Also, a histogram of the distribution is
    created in plot.pdf (using gnuplot).
 
 # License
