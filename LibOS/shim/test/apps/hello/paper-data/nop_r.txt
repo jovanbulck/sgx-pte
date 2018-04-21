@@ -1,0 +1,13 @@
+10000 measurements.txt
+> x <- read.csv('measurements.txt', header = F); summary(x);          v <- sd(x[ , 1]); names(v) <- (' Std deviation:'); print(v);
+       V1       
+ Min.   :  0.0  
+ 1st Qu.:428.0  
+ Median :436.0  
+ Mean   :431.7  
+ 3rd Qu.:444.0  
+ Max.   :492.0  
+ Std deviation: 
+         34.109 
+> 
+> 

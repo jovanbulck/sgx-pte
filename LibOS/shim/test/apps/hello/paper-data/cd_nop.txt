@@ -1,0 +1,211 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 200/200   #P:2
+#
+#                              _-----=> irqs-off
+#                             / _----=> need-resched
+#                            | / _---=> hardirq/softirq
+#                            || / _--=> preempt-depth
+#                            ||| /     delay
+#           TASK-PID   CPU#  ||||    TIMESTAMP  FUNCTION
+#              | |       |   ||||       |         |
+             pal-23978 [000] d.h. 21444.030221: victim_ipi_handler: IPI 1 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.030311: gsgx_spy_thread: IPI 1 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.032008: victim_ipi_handler: IPI 2 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.032090: gsgx_spy_thread: IPI 2 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.101011: victim_ipi_handler: IPI 3 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.101091: gsgx_spy_thread: IPI 3 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.103832: victim_ipi_handler: IPI 4 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.103913: gsgx_spy_thread: IPI 4 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.134130: victim_ipi_handler: IPI 5 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.134212: gsgx_spy_thread: IPI 5 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.135906: victim_ipi_handler: IPI 6 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.135986: gsgx_spy_thread: IPI 6 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.138712: victim_ipi_handler: IPI 7 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.138792: gsgx_spy_thread: IPI 7 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.140486: victim_ipi_handler: IPI 8 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.140567: gsgx_spy_thread: IPI 8 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.154731: victim_ipi_handler: IPI 9 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.154811: gsgx_spy_thread: IPI 9 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.156503: victim_ipi_handler: IPI 10 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.156584: gsgx_spy_thread: IPI 10 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.165078: victim_ipi_handler: IPI 11 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.165159: gsgx_spy_thread: IPI 11 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.167803: victim_ipi_handler: IPI 12 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.167885: gsgx_spy_thread: IPI 12 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.182184: victim_ipi_handler: IPI 13 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.182264: gsgx_spy_thread: IPI 13 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.183958: victim_ipi_handler: IPI 14 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.184039: gsgx_spy_thread: IPI 14 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.186727: victim_ipi_handler: IPI 15 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.186808: gsgx_spy_thread: IPI 15 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.188500: victim_ipi_handler: IPI 16 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.188581: gsgx_spy_thread: IPI 16 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.196437: victim_ipi_handler: IPI 17 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.196522: gsgx_spy_thread: IPI 17 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.199175: victim_ipi_handler: IPI 18 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.199256: gsgx_spy_thread: IPI 18 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.200950: victim_ipi_handler: IPI 19 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.201031: gsgx_spy_thread: IPI 19 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.208613: victim_ipi_handler: IPI 20 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.208694: gsgx_spy_thread: IPI 20 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.211349: victim_ipi_handler: IPI 21 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.211429: gsgx_spy_thread: IPI 21 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.216303: victim_ipi_handler: IPI 22 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.216384: gsgx_spy_thread: IPI 22 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.220912: victim_ipi_handler: IPI 23 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.220993: gsgx_spy_thread: IPI 23 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.223646: victim_ipi_handler: IPI 24 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.223727: gsgx_spy_thread: IPI 24 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.232012: victim_ipi_handler: IPI 25 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.232094: gsgx_spy_thread: IPI 25 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.236729: victim_ipi_handler: IPI 26 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.236809: gsgx_spy_thread: IPI 26 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.244300: victim_ipi_handler: IPI 27 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.244381: gsgx_spy_thread: IPI 27 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.247066: victim_ipi_handler: IPI 28 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.247147: gsgx_spy_thread: IPI 28 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.248843: victim_ipi_handler: IPI 29 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.248924: gsgx_spy_thread: IPI 29 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.256479: victim_ipi_handler: IPI 30 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.256562: gsgx_spy_thread: IPI 30 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.259914: victim_ipi_handler: IPI 31 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.259994: gsgx_spy_thread: IPI 31 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.264877: victim_ipi_handler: IPI 32 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.264958: gsgx_spy_thread: IPI 32 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.290890: victim_ipi_handler: IPI 33 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.290972: gsgx_spy_thread: IPI 33 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.292665: victim_ipi_handler: IPI 34 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.292746: gsgx_spy_thread: IPI 34 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.299882: victim_ipi_handler: IPI 35 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.299962: gsgx_spy_thread: IPI 35 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.302646: victim_ipi_handler: IPI 36 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.302728: gsgx_spy_thread: IPI 36 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.304421: victim_ipi_handler: IPI 37 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.304505: gsgx_spy_thread: IPI 37 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.312229: victim_ipi_handler: IPI 38 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.312312: gsgx_spy_thread: IPI 38 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.314988: victim_ipi_handler: IPI 39 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.315069: gsgx_spy_thread: IPI 39 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.316759: victim_ipi_handler: IPI 40 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.316840: gsgx_spy_thread: IPI 40 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.327408: victim_ipi_handler: IPI 41 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.327490: gsgx_spy_thread: IPI 41 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.332361: victim_ipi_handler: IPI 42 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.332442: gsgx_spy_thread: IPI 42 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.338154: victim_ipi_handler: IPI 43 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.338235: gsgx_spy_thread: IPI 43 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.339927: victim_ipi_handler: IPI 44 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.340008: gsgx_spy_thread: IPI 44 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.344911: victim_ipi_handler: IPI 45 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.344992: gsgx_spy_thread: IPI 45 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.376125: victim_ipi_handler: IPI 46 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.376207: gsgx_spy_thread: IPI 46 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.383515: victim_ipi_handler: IPI 47 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.383596: gsgx_spy_thread: IPI 47 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.386983: victim_ipi_handler: IPI 48 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.387064: gsgx_spy_thread: IPI 48 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.388758: victim_ipi_handler: IPI 49 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.388839: gsgx_spy_thread: IPI 49 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.396105: victim_ipi_handler: IPI 50 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.396187: gsgx_spy_thread: IPI 50 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.398870: victim_ipi_handler: IPI 51 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.398950: gsgx_spy_thread: IPI 51 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.400642: victim_ipi_handler: IPI 52 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.400723: gsgx_spy_thread: IPI 52 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.408406: victim_ipi_handler: IPI 53 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.408488: gsgx_spy_thread: IPI 53 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.421998: victim_ipi_handler: IPI 54 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.422079: gsgx_spy_thread: IPI 54 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.423775: victim_ipi_handler: IPI 55 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.423857: gsgx_spy_thread: IPI 55 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.428729: victim_ipi_handler: IPI 56 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.428810: gsgx_spy_thread: IPI 56 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.434200: victim_ipi_handler: IPI 57 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.434281: gsgx_spy_thread: IPI 57 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.435974: victim_ipi_handler: IPI 58 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.436055: gsgx_spy_thread: IPI 58 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.441014: victim_ipi_handler: IPI 59 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.441096: gsgx_spy_thread: IPI 59 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.446368: victim_ipi_handler: IPI 60 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.446450: gsgx_spy_thread: IPI 60 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.448145: victim_ipi_handler: IPI 61 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.448226: gsgx_spy_thread: IPI 61 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.456369: victim_ipi_handler: IPI 62 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.456450: gsgx_spy_thread: IPI 62 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.459142: victim_ipi_handler: IPI 63 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.459223: gsgx_spy_thread: IPI 63 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.460919: victim_ipi_handler: IPI 64 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.460999: gsgx_spy_thread: IPI 64 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.468634: victim_ipi_handler: IPI 65 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.468715: gsgx_spy_thread: IPI 65 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.498714: victim_ipi_handler: IPI 66 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.498795: gsgx_spy_thread: IPI 66 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.500488: victim_ipi_handler: IPI 67 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.500569: gsgx_spy_thread: IPI 67 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.568202: victim_ipi_handler: IPI 68 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .... 21444.568283: gsgx_spy_thread: IPI 68 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.620963: victim_ipi_handler: IPI 69 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.621044: gsgx_spy_thread: IPI 69 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.623709: victim_ipi_handler: IPI 70 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.623789: gsgx_spy_thread: IPI 70 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.642477: victim_ipi_handler: IPI 71 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.642558: gsgx_spy_thread: IPI 71 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.644249: victim_ipi_handler: IPI 72 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.644330: gsgx_spy_thread: IPI 72 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.682499: victim_ipi_handler: IPI 73 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.682579: gsgx_spy_thread: IPI 73 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.684271: victim_ipi_handler: IPI 74 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.684353: gsgx_spy_thread: IPI 74 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.702502: victim_ipi_handler: IPI 75 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.702583: gsgx_spy_thread: IPI 75 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.704276: victim_ipi_handler: IPI 76 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.704357: gsgx_spy_thread: IPI 76 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.715176: victim_ipi_handler: IPI 77 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.715258: gsgx_spy_thread: IPI 77 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.716951: victim_ipi_handler: IPI 78 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.717032: gsgx_spy_thread: IPI 78 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.719672: victim_ipi_handler: IPI 79 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.719754: gsgx_spy_thread: IPI 79 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.726986: victim_ipi_handler: IPI 80 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.727067: gsgx_spy_thread: IPI 80 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.728761: victim_ipi_handler: IPI 81 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.728841: gsgx_spy_thread: IPI 81 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.731390: victim_ipi_handler: IPI 82 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.731472: gsgx_spy_thread: IPI 82 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.739495: victim_ipi_handler: IPI 83 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.739576: gsgx_spy_thread: IPI 83 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.742259: victim_ipi_handler: IPI 84 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.742340: gsgx_spy_thread: IPI 84 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.744033: victim_ipi_handler: IPI 85 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.744114: gsgx_spy_thread: IPI 85 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.760803: victim_ipi_handler: IPI 86 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.760883: gsgx_spy_thread: IPI 86 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.763552: victim_ipi_handler: IPI 87 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.763633: gsgx_spy_thread: IPI 87 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.787746: victim_ipi_handler: IPI 88 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.787827: gsgx_spy_thread: IPI 88 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.804818: victim_ipi_handler: IPI 89 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.804898: gsgx_spy_thread: IPI 89 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.807569: victim_ipi_handler: IPI 90 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.807650: gsgx_spy_thread: IPI 90 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.824131: victim_ipi_handler: IPI 91 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.824213: gsgx_spy_thread: IPI 91 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.840713: victim_ipi_handler: IPI 92 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.840794: gsgx_spy_thread: IPI 92 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.843410: victim_ipi_handler: IPI 93 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.843492: gsgx_spy_thread: IPI 93 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.860037: victim_ipi_handler: IPI 94 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.860118: gsgx_spy_thread: IPI 94 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.920397: victim_ipi_handler: IPI 95 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.920479: gsgx_spy_thread: IPI 95 with PTE set 0x0
+             pal-23978 [000] d.h. 21444.991541: victim_ipi_handler: IPI 96 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21444.991622: gsgx_spy_thread: IPI 96 with PTE set 0x0
+             pal-23978 [000] d.h. 21445.036139: victim_ipi_handler: IPI 97 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21445.036220: gsgx_spy_thread: IPI 97 with PTE set 0x0
+             pal-23978 [000] d.h. 21445.063645: victim_ipi_handler: IPI 98 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21445.063726: gsgx_spy_thread: IPI 98 with PTE set 0x0
+             pal-23978 [000] d.h. 21445.096911: victim_ipi_handler: IPI 99 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21445.096993: gsgx_spy_thread: IPI 99 with PTE set 0x0
+             pal-23978 [000] d.h. 21445.140812: victim_ipi_handler: IPI 100 rip=0x403017 (offset=0x0)
+             pal-23984 [001] .N.. 21445.140893: gsgx_spy_thread: IPI 100 with PTE set 0x0

@@ -1,0 +1,20 @@
+parse.py: filtering outlier 23094007.125
+parse.py: non-zero count=12
+10000 measurements.txt
+> x <- read.csv('measurements.txt', header = F); summary(x);          v <- sd(x[ , 1]); names(v) <- (' Std deviation:'); print(v);
+       V1         
+ Min.   : 0.0000  
+ 1st Qu.: 0.0000  
+ Median : 0.0000  
+ Mean   : 0.0625  
+ 3rd Qu.: 0.0000  
+ Max.   :75.0000  
+ Std deviation: 
+       1.918323 
+> 
+> 
+
+plot "measurements.txt" u (hist($1,width)):(1.0) smooth freq w boxes lc rgb"green" notitle
+                                                                                          ^
+"plot_hist.gp", line 28: all points y value undefined!
+

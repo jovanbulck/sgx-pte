@@ -205,6 +205,9 @@ Proceed as follows:
    mean, stddev) on stdout using R. Also, a histogram of the distribution is
    created in plot.pdf (using gnuplot).
 
+**Note:** the raw microbenchmark data used to generate Table 1 in the paper can
+be found in the `$GRAPHENE/LibOS/shim/test/apps/hello/paper-data` directory.
+
 # License
 
 The code base is based on the Graphene-SGX project, which is itself licensed

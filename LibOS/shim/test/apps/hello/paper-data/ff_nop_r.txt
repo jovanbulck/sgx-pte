@@ -1,0 +1,15 @@
+parse.py: filtering outlier 4294956249.0
+parse.py: non-zero count=16
+10000 measurements.txt
+> x <- read.csv('measurements.txt', header = F); summary(x);          v <- sd(x[ , 1]); names(v) <- (' Std deviation:'); print(v);
+       V1          
+ Min.   :  0.0000  
+ 1st Qu.:  0.0000  
+ Median :  0.0000  
+ Mean   :  0.6544  
+ 3rd Qu.:  0.0000  
+ Max.   :640.0000  
+ Std deviation: 
+       17.65373 
+> 
+> 

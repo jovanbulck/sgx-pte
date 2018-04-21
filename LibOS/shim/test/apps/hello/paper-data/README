@@ -1,0 +1,39 @@
+The data in this directory is the raw output from the attacker gsgx driver and
+is organized according to Table 1 in the paper
+(https://people.cs.kuleuven.be/~jo.vanbulck/usenix17.pdf):
+
+- nop.txt + ff_nop.txt: the driver output for respectively an A/D spy
+and a Flush+Flush spy for the "nop" experiment (Table 1 row 1)
+
+- register_add.txt + ff_register_add.txt: the driver output for
+respectively and A/D spy and a Flush+Flush spy for the "add register"
+experiment (Table 1 row 2)
+
+- mem_add.txt + ff_mem_add.txt: the driver output for respectively and
+A/D spy and a Flush+Flush spy for the "add memory" experiment (Table 1
+row 3)
+
+- cd_nop.txt: the driver output for the "nop nocache" experiment (Table
+1 row 4)
+
+- *_r.txt: simply contains the output of 'run_microbenchmark.sh' on the
+corresponding raw data file (prints the mean and std dev via R)
+
+Now, the measurements.txt files that you asked for can trivially be
+generated with the 'parse_microbenchmarks.py' script as follows:
+
+1. rename the desired driver output txt file to
+"measurements_raw.txt" and place it in the same directory as
+parse_microbenchmarks.py
+
+2. adjust the INST_LEN variable in parse_microbenchmarks.py according to
+the driver output file (see comments: 1 for nop; 4 for register add; 8
+for memory add)
+
+3. generate measurements.txt by running ./parse_microbenchmarks.py
+
+Once measurements.txt is generated, you can reproduce the means/std dev
+in Table 1 by running the R command in "run_microbenchmark.sh", or you
+can generate plot.pdf using "gnuplot plot_hist.gp" (but you should
+probably adjust the min/max vars accordingly to see something useful).
+
